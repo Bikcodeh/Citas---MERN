@@ -1,0 +1,34 @@
+{
+  "type": "module",
+  "name": "citas-medicas-mern",
+  "version": "1.0.0",
+  "description": "Citas medicas backend",
+  "main": "dist/app.js",
+  "scripts": {
+    "start": "tsc && node dist/app.js",
+    "dev": "npx tsx src/app.ts",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "nodemon --exec 'npx tsx' -- src/app.ts"
+  },
+  "keywords": [
+    "Node",
+    "typescript",
+    "express"
+  ],
+  "author": "Bikcode",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@typescript-eslint/eslint-plugin": "^6.18.1",
+    "@typescript-eslint/parser": "^6.18.1",
+    "eslint": "^8.56.0",
+    "nodemon": "^3.0.2",
+    "ts-node": "^10.9.2",
+    "tslint": "^6.1.3",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
