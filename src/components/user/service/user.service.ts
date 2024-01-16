@@ -1,3 +1,4 @@
+import { EmailAlreadyTakenException } from './../../../common/exceptions/EmailAlreadyTakenException';
 import { injectable, inject } from "inversify";
 import { UserRepository } from '../repository/user.repository';
 import { IUser } from "../interface";
@@ -12,7 +13,7 @@ export class UserService {
     async create({ email, name, password, confirmed, token }: IUser) {
         const userExist = await this.userRepository.findUserByEmail(email);
         if (userExist) {
-            return new Error('Email Already Taken'); 
+            throw new EmailAlreadyTakenException(); 
         }
         return await this.userRepository.createUser({ email, name, password, confirmed, token });
     }
