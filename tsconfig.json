@@ -12,7 +12,11 @@
         "strict": true,
         "noImplicitAny": true,
         "strictNullChecks": true,
+        "lib": ["es6", "dom"],
         "esModuleInterop": true,
+        "types": ["reflect-metadata"],
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
         "skipLibCheck": true,
         "moduleResolution": "Node",
         "forceConsistentCasingInFileNames": true
