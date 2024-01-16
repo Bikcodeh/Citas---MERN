@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import connectDB from './config/db';
+import userRouter from './routes/users';
 
 dotenv.config();
 
@@ -11,6 +12,8 @@ connectDB();
 app.get('/', (req, res) => {
   res.send('The sedulous hyena ate the antelope!');
 });
+
+app.use('/api/users', userRouter);
 
 app.get('/data', (req, res) => {
     res.send('KHA');
