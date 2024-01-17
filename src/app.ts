@@ -4,7 +4,8 @@ import 'reflect-metadata';
 import express from 'express';
 import dotenv from 'dotenv';
 import connectDB from './config/db';
-import userRouter from './routes/users';
+import userRouter from './routes/users.routes';
+import authRoutes from './routes/auth.routes';
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/users', userRouter);
+app.use('/api/auth', authRoutes);
 
 app.get('/data', (req, res) => {
   res.send('KHA');
