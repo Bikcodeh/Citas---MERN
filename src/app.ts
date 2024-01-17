@@ -1,3 +1,4 @@
+import { errorHandlerMiddleware } from './routes/middleware/error.middleware';
 
 import 'reflect-metadata';
 import express from 'express';
@@ -21,6 +22,8 @@ app.use('/api/users', userRouter);
 app.get('/data', (req, res) => {
   res.send('KHA');
 });
+
+app.use(errorHandlerMiddleware);
 
 const port = process.env.PORT || 3000;
 

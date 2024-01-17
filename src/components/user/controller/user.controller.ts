@@ -1,9 +1,7 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { UserService } from '../service/user.service';
 import { inject, injectable } from "inversify";
 import { IUser } from '../interface';
-import { CustomException } from '../../../common/exceptions/CustomException';
-
 
 @injectable()
 export class UserController {
@@ -12,19 +10,22 @@ export class UserController {
 
     constructor(@inject(UserService.NAME) private userService: UserService) { }
 
-    async create(req: Request, res: Response) {
+    async create(req: Request, res: Response, next: NextFunction) {
         try {
             const data: IUser = req.body;
             const result = await this.userService.create({ ...data });
             res.status(201).json({ message: 'User created successfully', user: result });
         } catch (error) {
-            const customError = error as CustomException;
-            res.status(customError.code).json({ msg: customError.message })
+            next(error);
         }
     }
 
-    async getAll(req: Request, res: Response) {
-        const users = await this.userService.getAllUsers();
-        res.json({ status: 'ok', data: { ...users } })
+    async getAll(req: Request, res: Response, next: NextFunction) {
+        try {
+            const users = await this.userService.getAllUsers();
+            res.json({ status: 'ok', data: { ...users } })
+        } catch (error) {
+            next(error);
+        }
     }
 }
