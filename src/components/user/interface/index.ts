@@ -6,5 +6,8 @@ export interface IUser {
     email: string;
     token: string;
     confirmed: boolean;
+}
+
+export interface IUserDocument extends IUser, Document {
     checkPassword: (formPassword: string) => Promise<boolean>;
 }

@@ -21,9 +21,7 @@ app.get('/', (req, res) => {
 app.use('/api/users', userRouter);
 app.use('/api/auth', authRoutes);
 
-app.get('/data', (req, res) => {
-  res.send('KHA');
-});
+app.use(errorHandlerMiddleware);
 
 const port = process.env.PORT || 3000;
 

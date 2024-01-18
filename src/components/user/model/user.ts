@@ -1,8 +1,8 @@
-import { IUser } from '../interface/index';
+import { IUser, IUserDocument } from '../interface/index';
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 
-const userSchema = new mongoose.Schema<IUser>({
+const userSchema = new mongoose.Schema<IUserDocument>({
     name: {
         type: String,
         required: true,
@@ -27,7 +27,8 @@ const userSchema = new mongoose.Schema<IUser>({
         default: false
     }
 }, {
-    timestamps: true
+    timestamps: true,
+    strict: 'throw'
 });
 
 userSchema.pre('save', async function (next) {
@@ -42,6 +43,6 @@ userSchema.method('checkPassword', async function(formPassword) {
     return await bcrypt.compare(formPassword, this.password);
 });
 
-const User = mongoose.model<IUser>("User", userSchema);
+const User = mongoose.model<IUserDocument>("User", userSchema);
 
 export default User;

@@ -23,8 +23,10 @@ export class AuthService {
             throw new UserNotConfirmedException();
         }
         
-        if (!await user.checkPassword(user.password)) {
+        if (!await user.checkPassword(password)) {
             throw new PasswordWrongException();
+        } else {
+            return user;
         }
     }
 }
