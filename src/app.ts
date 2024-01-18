@@ -1,6 +1,5 @@
-import { errorHandlerMiddleware } from './routes/middleware/error.middleware';
-
 import 'reflect-metadata';
+import { errorHandlerMiddleware } from './routes/middleware/error.middleware';
 import express from 'express';
 import dotenv from 'dotenv';
 import connectDB from './config/db';
@@ -13,10 +12,6 @@ const app = express();
 app.use(express.json());
 
 connectDB();
-
-app.get('/', (req, res) => {
-  res.send('The sedulous hyena ate the antelope!');
-});
 
 app.use('/api/users', userRouter);
 app.use('/api/auth', authRoutes);
