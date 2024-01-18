@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { inject, injectable } from "inversify";
-import { IUser } from '../interface';
+import { IUser } from '../../domain/interface';
 import { UserService } from '../service/user.service';
 
 @injectable()

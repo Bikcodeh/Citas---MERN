@@ -30,4 +30,12 @@ export class AuthController {
             next(error);
         }
     }
+
+    async confirm(req: Request, res: Response, next: NextFunction) {
+        try {
+            
+        } catch (error) {
+            next(error);
+        }
+    }
 }

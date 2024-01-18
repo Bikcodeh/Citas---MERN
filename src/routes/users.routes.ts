@@ -1,6 +1,6 @@
 import express from "express";
-import { container } from "../config/inversify.config";
-import { UserController } from '../components/user/controller/user.controller';
+import { container } from "../config/di/inversify.config";
+import { UserController } from '../components/user/infraestructure/controller/user.controller';
 
 const router = express.Router();
 

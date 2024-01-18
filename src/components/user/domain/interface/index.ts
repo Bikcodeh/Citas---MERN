@@ -6,6 +6,7 @@ export interface IUser {
     email: string;
     token: string;
     confirmed: boolean;
+    [key: string]: any
 }
 
 export interface IUserDocument extends IUser, Document {
