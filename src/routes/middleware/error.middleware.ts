@@ -1,4 +1,4 @@
-import { CustomException } from './../../common/exceptions/CustomException';
+import { CustomException } from '../../common/exceptions/custom-exception';
 import { Request, Response, NextFunction } from 'express';
 
 export const errorHandlerMiddleware = (

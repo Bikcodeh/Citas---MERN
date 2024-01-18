@@ -25,8 +25,6 @@ app.get('/data', (req, res) => {
   res.send('KHA');
 });
 
-app.use(errorHandlerMiddleware);
-
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => {

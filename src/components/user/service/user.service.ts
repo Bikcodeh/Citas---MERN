@@ -1,4 +1,4 @@
-import { EmailAlreadyTakenException } from './../../../common/exceptions/EmailAlreadyTakenException';
+import { EmailAlreadyTakenException } from '../../../common/exceptions/email-already-taken.exception';
 import { injectable, inject } from "inversify";
 import { UserRepository } from '../repository/user.repository';
 import { IUser } from "../interface";
