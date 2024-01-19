@@ -1,3 +1,4 @@
+import { IUserDocumentModel } from './../../domain/interface/index';
 import { injectable } from "inversify";
 import { UserRepository } from '../../domain/repository/user.repository';
 import { IUser } from '../../domain/interface';
@@ -34,7 +35,7 @@ export class UserMongoRepository implements UserRepository {
 
     async confirmUser(user: IUser): Promise<boolean> {
         try {
-            const mongoUser = await User.findOne({ email: user.email});
+            const mongoUser = await User.findOne({ email: user.email });
             if (!mongoUser) return false;
 
             mongoUser.confirmed = true;
@@ -44,5 +45,9 @@ export class UserMongoRepository implements UserRepository {
         } catch (error) {
             return false;
         }
+    }
+
+    async resetToken(userId: string): Promise<void> {
+        await User.findOneAndUpdate({ _id: userId }, { token: generateId() })
     }
 }

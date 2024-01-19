@@ -6,6 +6,9 @@ import { UserService } from '../../components/user/infraestructure/service/user.
 import { UserRepository } from '../../components/user/domain/repository/user.repository';
 import { Container } from 'inversify';
 import { UserMongoRepository } from '../../components/user/infraestructure/repository/user-mongo.repository';
+import { GenericMapper } from '../../common/mapper/generic-mapper';
+import { UserMapper } from '../../components/user/infraestructure/mapper/user.mapper';
+import { IUser, IUserDocumentModel } from '../../components/user/domain/interface';
 
 const container = new Container();
 
@@ -13,6 +16,7 @@ const container = new Container();
 container.bind<UserService>('UserService').to(UserService);
 container.bind<UserController>('UserController').to(UserController);
 container.bind<UserRepository>('UserRepository').to(UserMongoRepository);
+container.bind<GenericMapper<IUser, IUserDocumentModel>>('UserMapper').to(UserMapper);
 
 /** Auth */
 container.bind<AuthRepository>('AuthRepository').to(AuthRepository);

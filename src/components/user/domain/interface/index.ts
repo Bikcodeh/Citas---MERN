@@ -9,6 +9,8 @@ export interface IUser {
     [key: string]: any
 }
 
-export interface IUserDocument extends IUser, Document {
+export interface IUserDocumentModel extends IUser, Document { }
+
+export interface IUserDocumentMethods extends IUserDocumentModel {
     checkPassword: (formPassword: string) => Promise<boolean>;
 }

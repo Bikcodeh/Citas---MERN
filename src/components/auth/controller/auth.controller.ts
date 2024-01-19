@@ -14,7 +14,9 @@ interface LoginBodyParams {
 export class AuthController {
 
     static NAME: string = 'AuthController';
-    constructor(@inject(AuthService.NAME) private authService: AuthService) {}
+    constructor(
+        @inject(AuthService.NAME) private authService: AuthService
+    ) { }
 
     async doLogin(req: Request, res: Response, next: NextFunction) {
         try {
@@ -41,6 +43,18 @@ export class AuthController {
                 res.status(StatusCodes.BAD_REQUEST).json({ msg: 'Account was not confirmed, please try again later' });
             }
         } catch (error) {
+            next(error);
+        }
+    }
+
+    async forgotPassword(req: Request, res: Response, next: NextFunction) {
+        try {
+
+            const user = await this.authService.validateUserByEmail(req.body.email);
+            await this.authService.resetToken(user._id);
+            res.status(StatusCodes.OK).json({ msg: 'User found' });
+        } catch (error) {
+            console.log(error);
             next(error);
         }
     }

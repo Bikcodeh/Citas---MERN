@@ -3,6 +3,6 @@ import { CustomException } from "./custom-exception";
 
 export class UserNotFoundException extends CustomException {
     constructor(message: string = 'User Not Found.') {
-        super(message, StatusCodes.FORBIDDEN)
+        super(message, StatusCodes.NOT_FOUND)
     }
 }
