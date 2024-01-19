@@ -2,10 +2,7 @@ import { injectable, inject } from 'inversify';
 import { AuthRepository } from './../repository/auth.repository';
 import { UserRepository } from '../../user/domain/repository/user.repository';
 import { UserNotConfirmedException, UserNotFoundException, PasswordWrongException } from '../../../common/exceptions';
-import { IUser, IUserDocumentModel } from '../../user/domain/interface';
-import { GenericMapper } from '../../../common/mapper/generic-mapper';
-import User from '../../user/domain/model/user';
-import mongoose from 'mongoose';
+import { IUser } from '../../user/domain/interface';
 
 @injectable()
 export class AuthService {
@@ -14,8 +11,7 @@ export class AuthService {
 
     constructor(
         @inject(AuthRepository.NAME) private authRepository: AuthRepository,
-        @inject('UserRepository') private userRepository: UserRepository,
-        @inject('UserMapper') private userMapper: GenericMapper<IUser, IUserDocumentModel>,
+        @inject('UserRepository') private userRepository: UserRepository
     ) { }
 
     async authenticate(email: string, password: string) {
