@@ -49,12 +49,24 @@ export class AuthController {
 
     async forgotPassword(req: Request, res: Response, next: NextFunction) {
         try {
-
             const user = await this.authService.validateUserByEmail(req.body.email);
             await this.authService.resetToken(user._id);
             res.status(StatusCodes.OK).json({ msg: 'User found' });
         } catch (error) {
             console.log(error);
+            next(error);
+        }
+    }
+
+    async validateToken(req: Request, res: Response, next: NextFunction) {
+        try {
+            const isValid = await this.authService.validateToken(req.params.token);
+            if (isValid) {
+                res.status(StatusCodes.OK).json({ msg: 'Valid token' })
+            } else {
+                res.status(StatusCodes.BAD_REQUEST).json({ error: 'Token it is not valid' })
+            }
+        } catch (error) {
             next(error);
         }
     }

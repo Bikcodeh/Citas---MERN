@@ -1,7 +1,12 @@
 import { injectable, inject } from 'inversify';
 import { AuthRepository } from './../repository/auth.repository';
 import { UserRepository } from '../../user/domain/repository/user.repository';
-import { UserNotConfirmedException, UserNotFoundException, PasswordWrongException } from '../../../common/exceptions';
+import {
+    UserNotConfirmedException,
+    UserNotFoundException,
+    PasswordWrongException,
+    InvalidTokenException
+} from '../../../common/exceptions';
 import { IUser } from '../../user/domain/interface';
 
 @injectable()
@@ -16,15 +21,15 @@ export class AuthService {
 
     async authenticate(email: string, password: string) {
         const user = await this.userRepository.findUserByEmail(email);
-        
+
         if (!user) {
-            throw new UserNotFoundException(); 
+            throw new UserNotFoundException();
         }
 
         if (!user.confirmed) {
             throw new UserNotConfirmedException();
         }
-        
+
         if (!await this.userRepository.validatePassword(user.email, password)) {
             throw new PasswordWrongException();
         } else {
@@ -43,14 +48,22 @@ export class AuthService {
 
     async validateUserByEmail(email: string): Promise<IUser> {
         const user = await this.userRepository.findUserByEmail(email);
-        
+
         if (!user) {
-            throw new UserNotFoundException(); 
+            throw new UserNotFoundException();
         }
         return user;
     }
 
     async resetToken(userId: string) {
         await this.userRepository.resetToken(userId)
+    }
+
+    async validateToken(token: string): Promise<boolean> {
+        const user = await this.userRepository.findByToken(token);
+        if (!user) {
+            throw new InvalidTokenException();
+        }
+        return true;
     }
 }
