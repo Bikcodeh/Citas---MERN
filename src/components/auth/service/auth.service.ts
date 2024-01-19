@@ -31,4 +31,13 @@ export class AuthService {
             return user;
         }
     }
+
+    async confirm(token: string): Promise<boolean> {
+        const user = await this.userRepository.findByToken(token);
+        if (!user) {
+            throw new UserNotFoundException();
+        }
+        const result = await this.userRepository.confirmUser(user);
+        return result;
+    }
 }

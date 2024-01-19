@@ -5,4 +5,6 @@ export interface UserRepository {
     findUserByEmail(email: string): Promise<IUser | null>
     getAllUsers(): Promise<IUser[]>
     validatePassword(email: string, formPassword: string): Promise<boolean>
+    findByToken(token: string): Promise<IUser | null>
+    confirmUser(user: IUser): Promise<boolean>;
 }

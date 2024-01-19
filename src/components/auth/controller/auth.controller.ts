@@ -33,7 +33,13 @@ export class AuthController {
 
     async confirm(req: Request, res: Response, next: NextFunction) {
         try {
-            
+            const token = req.params.token;
+            const result = await this.authService.confirm(token);
+            if (result) {
+                res.status(StatusCodes.OK).json({ msg: 'Account confirmed successfully' });
+            } else {
+                res.status(StatusCodes.BAD_REQUEST).json({ msg: 'Account was not confirmed, please try again later' });
+            }
         } catch (error) {
             next(error);
         }
