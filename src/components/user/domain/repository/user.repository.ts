@@ -6,6 +6,7 @@ export interface UserRepository {
     getAllUsers(): Promise<IUser[]>;
     validatePassword(email: string, formPassword: string): Promise<boolean>;
     findByToken(token: string): Promise<IUser | null>;
-    confirmUser(user: IUser): Promise<boolean>;
+    confirmUser(id: string): Promise<boolean>;
     resetToken(userId: string): Promise<void>;
+    changePassword(id: string, newPassword: string): Promise<boolean>
 }

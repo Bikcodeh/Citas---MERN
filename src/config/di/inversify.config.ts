@@ -12,15 +12,15 @@ import { IUser, IUserDocumentModel } from '../../components/user/domain/interfac
 
 const container = new Container();
 
+/** Auth */
+container.bind<AuthRepository>('AuthRepository').to(AuthRepository);
+container.bind<AuthService>('AuthService').to(AuthService);
+container.bind<AuthController>('AuthController').to(AuthController);
+
 /* User */ 
 container.bind<UserService>('UserService').to(UserService);
 container.bind<UserController>('UserController').to(UserController);
 container.bind<UserRepository>('UserRepository').to(UserMongoRepository);
 container.bind<GenericMapper<IUser, IUserDocumentModel>>('UserMapper').to(UserMapper);
-
-/** Auth */
-container.bind<AuthRepository>('AuthRepository').to(AuthRepository);
-container.bind<AuthService>('AuthService').to(AuthService);
-container.bind<AuthController>('AuthController').to(AuthController);
 
 export { container };

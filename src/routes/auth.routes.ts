@@ -5,11 +5,12 @@ import { AuthController } from '../components/auth/controller/auth.controller';
 
 const router = express.Router();
 
-const authController = container.get<AuthController>(AuthController.NAME);
+const authController = container.resolve(AuthController);
 
-router.post('/login', (req, res, next) => authController.doLogin(req, res, next));
-router.get('/confirm/:token', (req, res, next) => authController.confirm(req, res, next));
-router.post('/forgot-password', (req, res, next) => authController.forgotPassword(req, res, next));
-router.get('/forgot-password/:token', (req, res, next) => authController.validateToken(req, res, next));
+router.post('/login', authController.doLogin);
+router.get('/confirm/:token', authController.confirm);
+router.post('/forgot-password', authController.forgotPassword);
+router.get('/forgot-password/:token', authController.validateToken);
+router.post('/forgot-password/:token', authController.newPassword);
 
 export default router;

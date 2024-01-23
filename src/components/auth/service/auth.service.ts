@@ -42,7 +42,7 @@ export class AuthService {
         if (!user) {
             throw new UserNotFoundException();
         }
-        const result = await this.userRepository.confirmUser(user);
+        const result = await this.userRepository.confirmUser(user._id);
         return result;
     }
 
@@ -65,5 +65,13 @@ export class AuthService {
             throw new InvalidTokenException();
         }
         return true;
+    }
+
+    async newPassword(token: string, newPassword: string): Promise<boolean> {
+        const user = await this.userRepository.findByToken(token);
+        if (!user) {
+            throw new InvalidTokenException();
+        }
+        return await this.userRepository.changePassword(user._id, newPassword)
     }
 }

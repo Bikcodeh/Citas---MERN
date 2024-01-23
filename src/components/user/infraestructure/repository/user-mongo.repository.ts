@@ -10,6 +10,15 @@ export class UserMongoRepository implements UserRepository {
 
     constructor() { }
 
+    async changePassword(id: string, newPassword: string): Promise<boolean> {
+        const user = await User.findOne({ _id: id });
+        if (!user) return false;
+        user.token = '';
+        user.password = newPassword;
+        await user.save()
+        return true;
+    }
+
     async createUser({ email, name, password, confirmed, token }: IUser): Promise<IUser> {
         const user = new User({ email, name, password, confirmed, token });
         user.token = generateId();
@@ -33,18 +42,9 @@ export class UserMongoRepository implements UserRepository {
         return user ? user.toObject() : null;
     }
 
-    async confirmUser(user: IUser): Promise<boolean> {
-        try {
-            const mongoUser = await User.findOne({ email: user.email });
-            if (!mongoUser) return false;
-
-            mongoUser.confirmed = true;
-            mongoUser.token = '';
-            await mongoUser.save();
-            return true;
-        } catch (error) {
-            return false;
-        }
+    async confirmUser(id: string): Promise<boolean> {
+        const result = await User.findOneAndUpdate({ _id: id }, { token: '', confirmed: true }, { new: true});
+        return true;
     }
 
     async resetToken(userId: string): Promise<void> {
