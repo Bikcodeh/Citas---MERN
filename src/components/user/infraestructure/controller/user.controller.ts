@@ -11,22 +11,14 @@ export class UserController {
 
     constructor(@inject(UserService.NAME) private userService: UserService) { }
 
-    async create(req: Request, res: Response, next: NextFunction) {
-        try {
-            const data: IUser = req.body;
-            const result = await this.userService.create({ ...data });
-            res.status(StatusCodes.CREATED).json({ message: 'User created successfully', user: result });
-        } catch (error) {
-            next(error);
-        }
+    public create = async (req: Request, res: Response, next: NextFunction) => {
+        const data: IUser = req.body;
+        const result = await this.userService.create({ ...data });
+        res.status(StatusCodes.CREATED).json({ message: 'User created successfully', user: result });
     }
 
     async getAll(req: Request, res: Response, next: NextFunction) {
-        try {
-            const users = await this.userService.getAllUsers();
-            res.status(StatusCodes.OK).json({ status: 'ok', data: { ...users } })
-        } catch (error) {
-            next(error);
-        }
+        const users = await this.userService.getAllUsers();
+        res.status(StatusCodes.OK).json({ status: 'ok', data: { ...users } });
     }
 }
