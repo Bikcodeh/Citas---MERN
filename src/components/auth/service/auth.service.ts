@@ -1,5 +1,4 @@
 import { injectable, inject } from 'inversify';
-import { AuthRepository } from './../repository/auth.repository';
 import { UserRepository } from '../../user/domain/repository/user.repository';
 import {
     UserNotConfirmedException,
@@ -12,12 +11,9 @@ import { IUser } from '../../user/domain/interface';
 @injectable()
 export class AuthService {
 
-    static NAME: string = "AuthService";
+    static NAME: string = 'AuthService';
 
-    constructor(
-        @inject(AuthRepository.NAME) private authRepository: AuthRepository,
-        @inject('UserRepository') private userRepository: UserRepository
-    ) { }
+    constructor(@inject('UserRepository') private userRepository: UserRepository) { }
 
     async authenticate(email: string, password: string) {
         const user = await this.userRepository.findUserByEmail(email);

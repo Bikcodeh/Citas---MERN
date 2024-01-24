@@ -2,6 +2,7 @@ import { Document } from "mongoose";
 import { IUser } from "../../../user/domain/interface";
 
 export interface IProject {
+    _id?: any;
     name: string;
     description: string;
     deadline: Date;

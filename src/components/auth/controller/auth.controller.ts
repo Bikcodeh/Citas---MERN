@@ -14,6 +14,7 @@ interface LoginBodyParams {
 export class AuthController {
 
     static NAME: string = 'AuthController';
+
     constructor(
         @inject(AuthService.NAME) private authService: AuthService
     ) { }

@@ -29,19 +29,19 @@ export const checkAuth = async (req: Request, res: Response, next: NextFunction)
             const user = await User.findOne({ _id: decoded.id }, { password: 0, token: 0, createdAt: 0, updatedAt: 0, __v: 0, confirmed: 0 });
 
             if (!user) {
-                res.status(StatusCodes.BAD_REQUEST).json({ msg: 'Error searching user' });
+                return res.status(StatusCodes.BAD_REQUEST).json({ msg: 'Error searching user' });
             }
             req.user = user!;
             return next();
         } catch (error) {
             console.log(error);
-            res.status(StatusCodes.NOT_FOUND).json({ msg: 'An error happened, try again later.' })
+            return res.status(StatusCodes.NOT_FOUND).json({ msg: 'An error happened, try again later.' })
         }
     }
 
     if (!token) {
         const error = new InvalidTokenException();
-        res.status(error.code).json({ msg: error.message })
+        return res.status(error.code).json({ msg: error.message })
     }
     next();
 }

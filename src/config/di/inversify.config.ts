@@ -1,3 +1,4 @@
+import { ProjectMongoRepository } from './../../components/project/infraestructure/repository/project.mongo.repository';
 import { AuthController } from '../../components/auth/controller/auth.controller';
 import { AuthService } from '../../components/auth/service/auth.service';
 import { AuthRepository } from '../../components/auth/repository/auth.repository';
@@ -10,21 +11,25 @@ import { GenericMapper } from '../../common/mapper/generic-mapper';
 import { UserMapper } from '../../components/user/infraestructure/mapper/user.mapper';
 import { IUser, IUserDocumentModel } from '../../components/user/domain/interface';
 import { ProjectController } from '../../components/project/infraestructure/controller/project.controller';
+import { ProjectService } from '../../components/project/infraestructure/service/project.service';
+import { IProjectRepository } from '../../components/project/domain/repository/project.repository';
 
 const container = new Container();
 
 /** Auth */
-container.bind<AuthRepository>('AuthRepository').to(AuthRepository);
-container.bind<AuthService>('AuthService').to(AuthService);
-container.bind<AuthController>('AuthController').to(AuthController);
+container.bind<AuthRepository>(AuthRepository.NAME).to(AuthRepository);
+container.bind<AuthService>(AuthService.NAME).to(AuthService);
+container.bind<AuthController>(AuthController.NAME).to(AuthController);
 
-/* User */ 
-container.bind<UserService>('UserService').to(UserService);
-container.bind<UserController>('UserController').to(UserController);
+/* User */
+container.bind<UserService>(UserService.NAME).to(UserService);
+container.bind<UserController>(UserController.NAME).to(UserController);
 container.bind<UserRepository>('UserRepository').to(UserMongoRepository);
-container.bind<GenericMapper<IUser, IUserDocumentModel>>('UserMapper').to(UserMapper);
+container.bind<GenericMapper<IUser, IUserDocumentModel>>(UserMapper.NAME).to(UserMapper);
 
 /** Project */
-container.bind<ProjectController>('ProjectController').to(ProjectController);
+container.bind<ProjectController>(ProjectController.NAME).to(ProjectController);
+container.bind<ProjectService>(ProjectService.NAME).to(ProjectService);
+container.bind<IProjectRepository>('ProjectRepository').to(ProjectMongoRepository);
 
 export { container };

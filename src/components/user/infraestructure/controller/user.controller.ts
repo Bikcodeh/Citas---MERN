@@ -6,9 +6,7 @@ import { UserService } from '../service/user.service';
 
 @injectable()
 export class UserController {
-
     static NAME: string = 'UserController';
-
     constructor(@inject(UserService.NAME) private userService: UserService) { }
 
     public create = async (req: Request, res: Response, next: NextFunction) => {
@@ -23,6 +21,6 @@ export class UserController {
     }
 
     public profile = async (req: Request, res: Response) => {
-        res.json({ user: req.user});
+        res.json({ user: req.user });
     }
 }

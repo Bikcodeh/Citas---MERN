@@ -8,6 +8,7 @@ export const errorHandlerMiddleware = (
   res: Response,
   next: NextFunction
 ) => {
+  console.log(error);
   if (error instanceof CustomException) {
     res.status(error.code).json({ error: error.message });
   } else {
