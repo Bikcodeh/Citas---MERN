@@ -3,9 +3,9 @@ import 'express-async-errors';
 import express from 'express';
 import dotenv from 'dotenv';
 import connectDB from './config/db';
-import { container } from './config/di/inversify.config'
 import userRouter from './routes/users.routes';
 import authRoutes from './routes/auth.routes';
+import projectRoutes from './components/project/infraestructure/routes/project.routes';
 import { errorHandlerMiddleware } from './routes/middleware';
 
 dotenv.config();
@@ -17,6 +17,7 @@ connectDB();
 
 app.use('/api/users', userRouter);
 app.use('/api/auth', authRoutes);
+app.use('/api/project', projectRoutes);
 
 app.use(errorHandlerMiddleware);
 

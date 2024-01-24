@@ -9,6 +9,7 @@ import { UserMongoRepository } from '../../components/user/infraestructure/repos
 import { GenericMapper } from '../../common/mapper/generic-mapper';
 import { UserMapper } from '../../components/user/infraestructure/mapper/user.mapper';
 import { IUser, IUserDocumentModel } from '../../components/user/domain/interface';
+import { ProjectController } from '../../components/project/infraestructure/controller/project.controller';
 
 const container = new Container();
 
@@ -22,5 +23,8 @@ container.bind<UserService>('UserService').to(UserService);
 container.bind<UserController>('UserController').to(UserController);
 container.bind<UserRepository>('UserRepository').to(UserMongoRepository);
 container.bind<GenericMapper<IUser, IUserDocumentModel>>('UserMapper').to(UserMapper);
+
+/** Project */
+container.bind<ProjectController>('ProjectController').to(ProjectController);
 
 export { container };
