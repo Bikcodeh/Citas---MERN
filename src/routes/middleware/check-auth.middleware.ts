@@ -11,10 +11,6 @@ declare module 'express-serve-static-core' {
     }
 }
 
-interface DecodedToken {
-    id: string;
-}
-
 export const checkAuth = async (req: Request, res: Response, next: NextFunction) => {
     let token;
     if (
