@@ -17,8 +17,12 @@ export class UserController {
         res.status(StatusCodes.CREATED).json({ message: 'User created successfully', user: result });
     }
 
-    async getAll(req: Request, res: Response, next: NextFunction) {
+    public getAll = async (req: Request, res: Response, next: NextFunction) => {
         const users = await this.userService.getAllUsers();
         res.status(StatusCodes.OK).json({ status: 'ok', data: { ...users } });
+    }
+
+    public profile = async (req: Request, res: Response) => {
+        res.json({ user: req.user});
     }
 }

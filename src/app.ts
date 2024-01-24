@@ -6,7 +6,7 @@ import connectDB from './config/db';
 import { container } from './config/di/inversify.config'
 import userRouter from './routes/users.routes';
 import authRoutes from './routes/auth.routes';
-import { errorHandlerMiddleware } from './routes/middleware/error.middleware';
+import { errorHandlerMiddleware } from './routes/middleware';
 
 dotenv.config();
 
