@@ -12,18 +12,20 @@ export class ProjectController {
     constructor(@inject(ProjectService.NAME) private projectService: ProjectService) { }
 
     public getAllProjects = async (req: Request, res: Response) => {
-
+        const projects = await this.projectService.getProjectsByUser(req.user);
+        res.json({data: projects})
     }
 
     public addNewProject = async (req: Request, res: Response) => {
         const data = req.body as IProject;
-        data._id = req.user._id;
+        data.owner = req.user._id;
         const result = await this.projectService.addProject(data);
-        res.status(StatusCodes.OK).json({project: result })
+        return res.status(StatusCodes.OK).json({project: result })
     }
 
     public getProject = async (req: Request, res: Response) => {
-
+        const project = await this.projectService.getProjectById(req.params.id, req.user._id);
+        return res.status(StatusCodes.OK).json({project});
     }
 
     public editProject = async (req: Request, res: Response) => {
