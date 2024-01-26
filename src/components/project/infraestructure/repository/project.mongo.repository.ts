@@ -10,6 +10,15 @@ export class ProjectMongoRepository implements IProjectRepository {
 
     constructor() { }
 
+    async editProjectById(projectId: string, data: IProject): Promise<IProject | null> {
+        return await Project.findOneAndUpdate({ _id: projectId }, {
+            name: data.name,
+            description: data.description,
+            deadline: data.deadline,
+            client: data.client
+        }, { new: true });
+    }
+
     async getProjectById(projectId: string): Promise<IProject | null> {
         try {
             return await Project.findById(projectId);

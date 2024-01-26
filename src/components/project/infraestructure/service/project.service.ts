@@ -1,7 +1,7 @@
 import { inject, injectable } from 'inversify';
 import { ProjectNotAllowedException, ProjectNotFoundException } from '../../../../common/exceptions';
 import { IUser } from '../../../user/domain/interface';
-import { IProject } from '../../domain/interface';
+import { EditProjectParams, IProject } from '../../domain/interface';
 import { IProjectRepository } from '../../domain/repository/project.repository';
 
 @injectable()
@@ -20,7 +20,7 @@ export class ProjectService {
         return await this.projectRepository.getAllProjectsByUser(owner);
     }
 
-    public getProjectById = async (projectId: string, ownerId: any): Promise<IProject | null> => {
+    public getProjectById = async (projectId: string, ownerId: any): Promise<IProject> => {
         const project = await this.projectRepository.getProjectById(projectId);
         if (!project) {
             throw new ProjectNotFoundException();
@@ -29,5 +29,17 @@ export class ProjectService {
             throw new ProjectNotAllowedException();
         }
         return project;
+    }
+
+    public updateProjectById = async (projectId: any, ownerId: any, data: EditProjectParams): Promise<IProject> => {
+        const project = await this.projectRepository.getProjectById(projectId);
+        if (!project) {
+            throw new ProjectNotFoundException();
+        }
+        if (project.owner._id.toString() !== ownerId.toString()) {
+            throw new ProjectNotAllowedException();
+        }
+
+        return await this.projectRepository.editProjectById(project._id, data);
     }
 }

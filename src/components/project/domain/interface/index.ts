@@ -12,3 +12,10 @@ export interface IProject {
 }
 
 export interface IProjectDocument extends IProject, Document {}
+
+export interface EditProjectParams {
+    name: string;
+    description: string;
+    deadline: Date;
+    client: string;
+}

@@ -1,7 +1,7 @@
 import { inject, injectable } from 'inversify';
 import { Request, Response } from "express";
 import { ProjectService } from '../service/project.service';
-import { IProject } from '../../domain/interface';
+import { EditProjectParams, IProject } from '../../domain/interface';
 import { StatusCodes } from 'http-status-codes';
 
 @injectable()
@@ -13,7 +13,7 @@ export class ProjectController {
 
     public getAllProjects = async (req: Request, res: Response) => {
         const projects = await this.projectService.getProjectsByUser(req.user);
-        res.json({data: projects})
+        return res.json({data: projects})
     }
 
     public addNewProject = async (req: Request, res: Response) => {
@@ -29,7 +29,8 @@ export class ProjectController {
     }
 
     public editProject = async (req: Request, res: Response) => {
-
+        const result = await this.projectService.updateProjectById(req.params.id, req.user._id, req.body as EditProjectParams);
+        return res.status(StatusCodes.OK).json({ msg: 'Updated succesfully', data: result});
     }
 
     public deleteProject = async (req: Request, res: Response) => {
