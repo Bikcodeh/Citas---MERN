@@ -10,6 +10,14 @@ export class ProjectMongoRepository implements IProjectRepository {
 
     constructor() { }
 
+    async deleteProjectById(projectId: string): Promise<void> {
+        try {
+            await Project.findById(projectId).deleteOne();
+        } catch (error) {
+            throw new ProjectNotFoundException();
+        }
+    }
+
     async editProjectById(projectId: string, data: IProject): Promise<IProject | null> {
         return await Project.findOneAndUpdate({ _id: projectId }, {
             name: data.name,

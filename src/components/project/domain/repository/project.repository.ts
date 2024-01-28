@@ -5,5 +5,7 @@ export interface IProjectRepository {
     createProject(data: IProject): Promise<IProject>
     getAllProjectsByUser(owner: IUser): Promise<IProject[]>
     getProjectById(projectId: string): Promise<IProject | null>
-    editProjectById(projectId: string, data: EditProjectParams): Promise<IProject>
+    getProjectById(projectId: string): Promise<IProject | null>
+    editProjectById(projectId: string, data: EditProjectParams): Promise<IProject | null>
+    deleteProjectById(projectId: string): Promise<void>
 }

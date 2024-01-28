@@ -31,7 +31,7 @@ export class ProjectService {
         return project;
     }
 
-    public updateProjectById = async (projectId: any, ownerId: any, data: EditProjectParams): Promise<IProject> => {
+    public updateProjectById = async (projectId: any, ownerId: any, data: EditProjectParams): Promise<IProject | null> => {
         const project = await this.projectRepository.getProjectById(projectId);
         if (!project) {
             throw new ProjectNotFoundException();
@@ -41,5 +41,16 @@ export class ProjectService {
         }
 
         return await this.projectRepository.editProjectById(project._id, data);
+    }
+
+    public deleteProjectById = async (projectId: any, ownerId: any) => {
+        const project = await this.projectRepository.getProjectById(projectId);
+        if (!project) {
+            throw new ProjectNotFoundException();
+        }
+        if (project.owner._id.toString() !== ownerId.toString()) {
+            throw new ProjectNotAllowedException();
+        }
+        await this.projectRepository.deleteProjectById(projectId);
     }
 }
