@@ -13,6 +13,7 @@ import { IUser, IUserDocumentModel } from '../../components/user/domain/interfac
 import { ProjectController } from '../../components/project/infraestructure/controller/project.controller';
 import { ProjectService } from '../../components/project/infraestructure/service/project.service';
 import { IProjectRepository } from '../../components/project/domain/repository/project.repository';
+import { TasksController } from '../../components/tasks/infraestructure/controller/tasks.controller';
 
 const container = new Container();
 
@@ -31,5 +32,8 @@ container.bind<GenericMapper<IUser, IUserDocumentModel>>(UserMapper.NAME).to(Use
 container.bind<ProjectController>(ProjectController.NAME).to(ProjectController);
 container.bind<ProjectService>(ProjectService.NAME).to(ProjectService);
 container.bind<IProjectRepository>('ProjectRepository').to(ProjectMongoRepository);
+
+/** Tasks */
+container.bind<TasksController>(TasksController.NAME).to(TasksController);
 
 export { container };
