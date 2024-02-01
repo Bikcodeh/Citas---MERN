@@ -14,6 +14,9 @@ import { ProjectController } from '../../components/project/infraestructure/cont
 import { ProjectService } from '../../components/project/infraestructure/service/project.service';
 import { IProjectRepository } from '../../components/project/domain/repository/project.repository';
 import { TasksController } from '../../components/tasks/infraestructure/controller/tasks.controller';
+import { TasksService } from '../../components/tasks/infraestructure/service/tasks.service';
+import { TasksRepository } from '../../components/tasks/domain/repository/tasks.repository';
+import { TasksMongoRepositoryImpl } from '../../components/tasks/infraestructure/repository/tasks.mongo.repository';
 
 const container = new Container();
 
@@ -35,5 +38,7 @@ container.bind<IProjectRepository>('ProjectRepository').to(ProjectMongoRepositor
 
 /** Tasks */
 container.bind<TasksController>(TasksController.NAME).to(TasksController);
+container.bind<TasksService>(TasksService.NAME).to(TasksService);
+container.bind<TasksRepository>('TasksRepository').to(TasksMongoRepositoryImpl);
 
 export { container };
