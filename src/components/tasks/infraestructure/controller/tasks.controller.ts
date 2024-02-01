@@ -24,7 +24,8 @@ export class TasksController {
     }
 
     public getTask = async (req: Request, res: Response) => {
-        
+        const task = await this.tasksService.getTask(req.params.id, req.user._id);
+        return res.json({mgs: 'ok', data: task});
     }
 
     public changeStatus = async (req: Request, res: Response) => {

@@ -6,3 +6,4 @@ export * from './password-wrong.exception';
 export * from './invalid-token.exception';
 export * from './project-not-found.exception';
 export * from './project-not-allowed.exception';
+export * from './task-not-found.exception';

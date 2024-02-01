@@ -28,4 +28,12 @@ export class TasksService {
         const task = await this.tasksRepository.addTask(data);
         return task;
     }
+
+    public getTask = async (taskId: string, userId: any) => {
+        const task = await this.tasksRepository.getSingleTask(taskId);
+        if (task.projectId.owner._id.toString() !== userId.toString()) {
+            throw new ProjectNotAllowedException();
+        }
+        return task;
+    }
 }
