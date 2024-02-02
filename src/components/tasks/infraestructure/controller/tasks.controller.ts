@@ -16,7 +16,8 @@ export class TasksController {
     }
 
     public editTask = async (req: Request, res: Response) => {
-        
+        const task = await this.tasksService.editTask(req.params.id, req.body, req.user._id);
+        return res.status(StatusCodes.OK).json({status: 'ok', data: task});
     }
 
     public deleteTask = async (req: Request, res: Response) => {

@@ -36,4 +36,12 @@ export class TasksService {
         }
         return task;
     }
+
+    public editTask = async(taskId: string, data: ITask, userId: any) => {
+        const task = await this.tasksRepository.getSingleTask(taskId);
+        if (task.projectId.owner._id.toString() !== userId.toString()) {
+            throw new ProjectNotAllowedException();
+        }
+        return await this.tasksRepository.updateTask(taskId, data);
+    }
 }
