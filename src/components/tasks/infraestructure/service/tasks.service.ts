@@ -29,7 +29,7 @@ export class TasksService {
         return task;
     }
 
-    public getTask = async (taskId: string, userId: any) => {
+    public getTask = async (taskId: string, userId: any): Promise<ITask> => {
         const task = await this.tasksRepository.getSingleTask(taskId);
         if (task.projectId.owner._id.toString() !== userId.toString()) {
             throw new ProjectNotAllowedException();
@@ -37,11 +37,19 @@ export class TasksService {
         return task;
     }
 
-    public editTask = async(taskId: string, data: ITask, userId: any) => {
+    public editTask = async(taskId: string, data: ITask, userId: any): Promise<ITask> => {
         const task = await this.tasksRepository.getSingleTask(taskId);
         if (task.projectId.owner._id.toString() !== userId.toString()) {
             throw new ProjectNotAllowedException();
         }
         return await this.tasksRepository.updateTask(taskId, data);
+    }
+
+    public deleteTask = async(taskId: string, userId: any): Promise<boolean> => {
+        const task = await this.tasksRepository.getSingleTask(taskId);
+        if (task.projectId.owner._id.toString() !== userId.toString()) {
+            throw new ProjectNotAllowedException();
+        }
+        return await this.tasksRepository.deleteTask(task._id);
     }
 }

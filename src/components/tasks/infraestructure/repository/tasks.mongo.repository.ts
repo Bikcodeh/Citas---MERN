@@ -12,6 +12,20 @@ export class TasksMongoRepositoryImpl implements TasksRepository {
 
     constructor() { }
 
+
+    public deleteTask = async (taskId: string): Promise<boolean> => {
+        try {
+            const updatedTask = await TaskModel.findOneAndDelete({_id: taskId})
+            if (updatedTask) {
+                return true;
+            } else {
+                throw new TaskNotFoundException();
+            }
+        } catch (error) {
+            throw new TaskNotFoundException();
+        }
+    }
+
     public updateTask = async (taskId: string, data: ITask): Promise<ITask> => {
         try {
             const updatedTask = await TaskModel.findOneAndUpdate(
