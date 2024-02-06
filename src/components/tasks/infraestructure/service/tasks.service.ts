@@ -1,5 +1,3 @@
-import mongoose from 'mongoose';
-import { ObjectId } from 'mongoose';
 import { inject, injectable } from 'inversify';
 import { ITask } from './../../domain/interface/index';
 import { TasksRepository } from './../../domain/repository/tasks.repository';
