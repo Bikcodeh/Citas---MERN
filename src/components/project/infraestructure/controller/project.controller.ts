@@ -3,13 +3,17 @@ import { Request, Response } from "express";
 import { ProjectService } from '../service/project.service';
 import { EditProjectParams, IProject } from '../../domain/interface';
 import { StatusCodes } from 'http-status-codes';
+import { TasksService } from '../../../tasks/infraestructure/service/tasks.service';
 
 @injectable()
 export class ProjectController {
 
     static NAME: string = 'ProjectController';
 
-    constructor(@inject(ProjectService.NAME) private projectService: ProjectService) { }
+    constructor(
+        @inject(ProjectService.NAME) private projectService: ProjectService,
+        @inject(TasksService.NAME) private tasksService: TasksService
+    ) { }
 
     public getAllProjects = async (req: Request, res: Response) => {
         const projects = await this.projectService.getProjectsByUser(req.user);
@@ -25,7 +29,8 @@ export class ProjectController {
 
     public getProject = async (req: Request, res: Response) => {
         const project = await this.projectService.getProjectById(req.params.id, req.user._id);
-        return res.status(StatusCodes.OK).json({ project });
+        const tasks = await this.tasksService.getTasksByProject(project._id);
+        return res.status(StatusCodes.OK).json({ project, tasks });
     }
 
     public editProject = async (req: Request, res: Response) => {
@@ -43,10 +48,6 @@ export class ProjectController {
     }
 
     public deleteCollaborator = async (req: Request, res: Response) => {
-
-    }
-
-    public getTasks = async (req: Request, res: Response) => {
 
     }
 }

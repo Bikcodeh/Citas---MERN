@@ -50,4 +50,8 @@ export class TasksService {
         }
         return await this.tasksRepository.deleteTask(task._id);
     }
+
+    public getTasksByProject = async (projectId: string): Promise<ITask[]> => {
+        return await this.tasksRepository.getTasksByProject(projectId);
+    }
 }

@@ -11,11 +11,14 @@ export class TasksMongoRepositoryImpl implements TasksRepository {
     static NAME: string = 'TasksMongoRepositoryImpl';
 
     constructor() { }
+    public getTasksByProject = async (projectId: string): Promise<ITask[]> => {
+        return await TaskModel.find().where('projectId').equals(projectId);
+    }
 
 
     public deleteTask = async (taskId: string): Promise<boolean> => {
         try {
-            const updatedTask = await TaskModel.findOneAndDelete({_id: taskId})
+            const updatedTask = await TaskModel.findOneAndDelete({ _id: taskId })
             if (updatedTask) {
                 return true;
             } else {
@@ -47,7 +50,7 @@ export class TasksMongoRepositoryImpl implements TasksRepository {
             throw new TaskNotFoundException();
         }
     }
-    
+
 
     public getSingleTask = async (taskId: string): Promise<ITask> => {
         const task = await TaskModel.findById(taskId).populate('projectId');

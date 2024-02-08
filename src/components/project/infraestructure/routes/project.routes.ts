@@ -17,7 +17,6 @@ router.route('/:id')
     .put(checkAuth, projectController.editProject)
     .delete(checkAuth, projectController.deleteProject);
 
-    router.get('tasks/:id', checkAuth, projectController.getTasks);
     router.post('add-collaborator/:id', checkAuth, projectController.addCollaborator);
     router.get('delete-collaborator/:id', checkAuth, projectController.deleteCollaborator);
 

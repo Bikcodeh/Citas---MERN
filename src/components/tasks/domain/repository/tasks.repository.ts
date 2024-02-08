@@ -5,4 +5,5 @@ export interface TasksRepository {
     getSingleTask(taskId: string): Promise<ITask>
     updateTask(taskId: string, data: ITask): Promise<ITask>
     deleteTask(taskId: string): Promise<boolean>
+    getTasksByProject(projectId: string): Promise<ITask[]>
 }
