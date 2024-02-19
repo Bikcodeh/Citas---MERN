@@ -3,6 +3,7 @@ import { StatusCodes } from 'http-status-codes';
 import { inject, injectable } from "inversify";
 import { IUser } from '../../domain/interface';
 import { UserService } from '../service/user.service';
+import { sendRegisterEmail } from '../../../../helpers/emails';
 
 @injectable()
 export class UserController {
@@ -11,7 +12,8 @@ export class UserController {
 
     public create = async (req: Request, res: Response, next: NextFunction) => {
         const data: IUser = req.body;
-        await this.userService.create({ ...data });
+        const user = await this.userService.create({ ...data });
+        sendRegisterEmail(user.email, user.name, user.token);
         res.status(StatusCodes.CREATED).json({ message: 'User created successfully' });
     }
 
