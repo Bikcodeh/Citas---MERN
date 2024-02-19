@@ -11,8 +11,8 @@ export class UserController {
 
     public create = async (req: Request, res: Response, next: NextFunction) => {
         const data: IUser = req.body;
-        const result = await this.userService.create({ ...data });
-        res.status(StatusCodes.CREATED).json({ message: 'User created successfully', user: result });
+        await this.userService.create({ ...data });
+        res.status(StatusCodes.CREATED).json({ message: 'User created successfully' });
     }
 
     public getAll = async (req: Request, res: Response, next: NextFunction) => {
