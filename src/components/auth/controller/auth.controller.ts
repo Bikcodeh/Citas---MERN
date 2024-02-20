@@ -51,7 +51,7 @@ export class AuthController {
         if (isValid) {
             res.status(StatusCodes.OK).json({ msg: 'Valid token' })
         } else {
-            res.status(StatusCodes.BAD_REQUEST).json({ error: 'Token it is not valid' })
+            res.status(StatusCodes.BAD_REQUEST).json({ msg: 'Token it is not valid' })
         }
     }
 
@@ -63,9 +63,9 @@ export class AuthController {
             if (result)
                 res.status(StatusCodes.OK).json({ msg: 'Password updated' });
             else
-                res.status(StatusCodes.BAD_REQUEST).json({ error: 'An error happened updating your password, please try again later.' })
+                res.status(StatusCodes.BAD_REQUEST).json({ msg: 'An error happened updating your password, please try again later.' })
         } else {
-            res.status(StatusCodes.BAD_REQUEST).json({ error: 'Token it is not valid' })
+            res.status(StatusCodes.BAD_REQUEST).json({ msg: 'Token it is not valid' })
         }
     }
 }

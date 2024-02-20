@@ -14,7 +14,7 @@ export class UserController {
         const data: IUser = req.body;
         const user = await this.userService.create({ ...data });
         sendRegisterEmail(user.email, user.name, user.token);
-        res.status(StatusCodes.CREATED).json({ message: 'User created successfully' });
+        res.status(StatusCodes.CREATED).json({ msg: 'User created successfully' });
     }
 
     public getAll = async (req: Request, res: Response, next: NextFunction) => {

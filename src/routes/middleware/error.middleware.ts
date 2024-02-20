@@ -10,8 +10,8 @@ export const errorHandlerMiddleware = (
 ) => {
   console.log(error);
   if (error instanceof CustomException) {
-    res.status(error.code).json({ error: error.message });
+    res.status(error.code).json({ msg: error.message });
   } else {
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Internal server error' });
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ msg: 'Internal server error' });
   }
 }
