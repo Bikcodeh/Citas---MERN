@@ -34,7 +34,7 @@ export class AuthController {
         const token = req.params.token;
         const result = await this.authService.confirm(token);
         if (result) {
-            res.status(StatusCodes.OK).json({ msg: 'Account confirmed successfully' });
+            res.status(StatusCodes.OK).json({ msg: 'Account confirmed successfully', status: 'ok' });
         } else {
             res.status(StatusCodes.BAD_REQUEST).json({ msg: 'Account was not confirmed, please try again later' });
         }
