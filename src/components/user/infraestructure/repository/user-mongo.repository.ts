@@ -4,6 +4,7 @@ import { UserRepository } from '../../domain/repository/user.repository';
 import { IUser } from '../../domain/interface';
 import User from "../../domain/model/user";
 import { generateId } from '../../../../helpers/index';
+import { UserNotFoundException } from '../../../../common/exceptions';
 
 @injectable()
 export class UserMongoRepository implements UserRepository {
@@ -43,11 +44,19 @@ export class UserMongoRepository implements UserRepository {
     }
 
     async confirmUser(id: string): Promise<boolean> {
-        const result = await User.findOneAndUpdate({ _id: id }, { token: '', confirmed: true }, { new: true});
+        const result = await User.findOneAndUpdate({ _id: id }, { token: '', confirmed: true }, { new: true });
         return true;
     }
 
-    async resetToken(userId: string): Promise<void> {
-        await User.findOneAndUpdate({ _id: userId }, { token: generateId() })
+    async resetToken(userId: string): Promise<IUser> {
+        try {
+            const user =  await User.findOneAndUpdate({ _id: userId }, { token: generateId() }, { new: true })   
+            if (!user || user == null) {
+                throw new UserNotFoundException();    
+            }
+            return user;
+        } catch (error) {
+            throw new UserNotFoundException();
+        }
     }
 }

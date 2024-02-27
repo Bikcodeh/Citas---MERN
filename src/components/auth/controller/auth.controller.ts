@@ -4,6 +4,7 @@ import { StatusCodes } from 'http-status-codes';
 
 import { generateJWT } from './../../../helpers/index';
 import { AuthService } from './../service/auth.service';
+import { sendForgotPasswordEmail } from '../../../helpers/emails';
 
 interface LoginBodyParams {
     email: string;
@@ -42,8 +43,9 @@ export class AuthController {
 
     public forgotPassword = async (req: Request, res: Response) => {
         const user = await this.authService.validateUserByEmail(req.body.email);
-        await this.authService.resetToken(user._id);
-        res.status(StatusCodes.OK).json({ msg: 'User found' });
+        const userByToken = await this.authService.resetToken(user._id);
+        sendForgotPasswordEmail(userByToken.email, userByToken.name, userByToken.token)
+        res.status(StatusCodes.OK).json({ msg: 'An email with instructions to recover your password have been send' });
     }
 
     public validateToken = async (req: Request, res: Response) => {

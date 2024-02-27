@@ -52,7 +52,7 @@ export class AuthService {
     }
 
     async resetToken(userId: string) {
-        await this.userRepository.resetToken(userId)
+        return await this.userRepository.resetToken(userId)
     }
 
     async validateToken(token: string): Promise<boolean> {
