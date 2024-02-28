@@ -63,11 +63,11 @@ export class AuthController {
         if (isValid) {
             const result = await this.authService.newPassword(req.params.token, req.body.password);
             if (result)
-                res.status(StatusCodes.OK).json({ msg: 'Password updated' });
+                res.status(StatusCodes.OK).json({ msg: 'Password updated', success: true });
             else
-                res.status(StatusCodes.BAD_REQUEST).json({ msg: 'An error happened updating your password, please try again later.' })
+                res.status(StatusCodes.BAD_REQUEST).json({ msg: 'An error happened updating your password, please try again later.', success: false })
         } else {
-            res.status(StatusCodes.BAD_REQUEST).json({ msg: 'Token it is not valid' })
+            res.status(StatusCodes.BAD_REQUEST).json({ msg: 'Token it is not valid', success: false })
         }
     }
 }
