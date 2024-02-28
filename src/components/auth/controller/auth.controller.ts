@@ -51,9 +51,9 @@ export class AuthController {
     public validateToken = async (req: Request, res: Response) => {
         const isValid = await this.authService.validateToken(req.params.token);
         if (isValid) {
-            res.status(StatusCodes.OK).json({ msg: 'Valid token' })
+            res.status(StatusCodes.OK).json({ msg: 'Valid token', success: true })
         } else {
-            res.status(StatusCodes.BAD_REQUEST).json({ msg: 'Token it is not valid' })
+            res.status(StatusCodes.BAD_REQUEST).json({ msg: 'Token it is not valid', success: false })
         }
     }
 

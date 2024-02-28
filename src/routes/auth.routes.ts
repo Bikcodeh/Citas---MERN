@@ -2,7 +2,6 @@ import express from "express";
 import { container } from "../config/di/inversify.config";
 
 import { AuthController } from '../components/auth/controller/auth.controller';
-import { checkAuth } from "./middleware";
 
 const router = express.Router();
 
