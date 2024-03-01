@@ -19,10 +19,10 @@ export class UserController {
 
     public getAll = async (req: Request, res: Response, next: NextFunction) => {
         const users = await this.userService.getAllUsers();
-        res.status(StatusCodes.OK).json({ status: 'ok', data: { ...users } });
+        res.status(StatusCodes.OK).json({ success: true, data: { ...users } });
     }
 
     public profile = async (req: Request, res: Response) => {
-        res.json({ user: req.user });
+        res.status(StatusCodes.OK).json({ user: req.user });
     }
 }
