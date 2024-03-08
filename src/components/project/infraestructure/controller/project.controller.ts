@@ -17,14 +17,14 @@ export class ProjectController {
 
     public getAllProjects = async (req: Request, res: Response) => {
         const projects = await this.projectService.getProjectsByUser(req.user);
-        return res.json({ data: projects })
+        return res.json(projects)
     }
 
     public addNewProject = async (req: Request, res: Response) => {
         const data = req.body as IProject;
         data.owner = req.user._id;
         const result = await this.projectService.addProject(data);
-        return res.status(StatusCodes.OK).json({ project: result })
+        return res.status(StatusCodes.OK).json( result )
     }
 
     public getProject = async (req: Request, res: Response) => {
